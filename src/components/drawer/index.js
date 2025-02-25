@@ -6,30 +6,37 @@ import { CgChevronUp } from "react-icons/cg";
 export default function Drawer({ event }) {
     const [screen, setScreen] = useState("minimize"); // 'minimize', 'half', 'full'
 
-
-    const MenuComponent = ({
-        screen, setScreen
-    }) => {
+    const MenuComponent = ({ screen, setScreen }) => {
         const [height, setHeight] = useState(0); // Dynamic height
         const currentHeight = useRef(0);
 
         const startY = useRef(0);
-        const windowHeight = useRef(typeof window !== "undefined" ? window.innerHeight : 800); // Default to 800px
+        const windowHeight = useRef(
+            typeof window !== "undefined" && window.visualViewport
+                ? window.visualViewport.height
+                : 800
+        ); // Default to 800px
 
         // Update windowHeight on resize
         useEffect(() => {
             const updateHeight = () => {
-                windowHeight.current = window.innerHeight;
+                windowHeight.current =
+                    window.visualViewport?.height || window.innerHeight;
+
                 if (screen === "full") {
                     setHeight(windowHeight.current);
                 }
                 if (screen === "half") {
-                    currentHeight.current = 200
+                    currentHeight.current = 200;
                     setHeight(200);
                 }
             };
 
-            updateHeight()
+            updateHeight();
+
+            window.visualViewport?.addEventListener("resize", updateHeight);
+            return () =>
+                window.visualViewport?.removeEventListener("resize", updateHeight);
         }, [screen]);
 
         const handleTouchStart = (e) => {
@@ -39,7 +46,7 @@ export default function Drawer({ event }) {
 
         const handleTouchMove = (e) => {
             const moveY = e.touches[0].clientY;
-            let newHeight = currentHeight.current + (startY.current - moveY);            
+            let newHeight = currentHeight.current + (startY.current - moveY);
             setHeight(newHeight);
         };
 
@@ -48,7 +55,7 @@ export default function Drawer({ event }) {
             if (height > windowHeight.current) {
                 setHeight(windowHeight.current);
                 setScreen("full");
-            }else if (height > 0.75 * windowHeight.current) {
+            } else if (height > 0.75 * windowHeight.current) {
                 setScreen("full");
             } else if (height > 0.5 * windowHeight.current) {
                 setScreen("half");
@@ -59,7 +66,7 @@ export default function Drawer({ event }) {
 
         return (
             <div
-                className="bg-white w-screen rounded-t-xl shadow-lg" 
+                className="bg-white w-screen rounded-t-xl shadow-lg"
                 style={{ height: `${height}px` }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -69,7 +76,6 @@ export default function Drawer({ event }) {
                 <div className="w-full flex justify-center py-2">
                     <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
                 </div>
-
 
                 <div className="text-center mt-3 font-semibold">Quick Actions</div>
                 <div className="text-center mt-3">
@@ -87,8 +93,8 @@ export default function Drawer({ event }) {
                     </div>
                 </div>
             </div>
-        )
-    }
+        );
+    };
 
     return (
         <main
@@ -99,19 +105,23 @@ export default function Drawer({ event }) {
                 width: "100%",
             }}
         >
-
             {/* Minimized State */}
-            {screen !== "minimize" && (<MenuComponent screen={screen} setScreen={setScreen} />)}
-
+            {screen !== "minimize" && <MenuComponent screen={screen} setScreen={setScreen} />}
 
             {/* Minimized State */}
             {screen === "minimize" && (
                 <div
-                    onClick={()=>{setScreen('half')}}
+                    onClick={() => {
+                        setScreen("half");
+                    }}
                     className="bg-white w-screen py-3.5 px-5 flex items-center"
                 >
-                    <div className="inline-block"><CgChevronUp className="text-lg" /></div>
-                    <div className="inline-block ml-5 text-sm text-gray-500">Tap to see quick actions</div>
+                    <div className="inline-block">
+                        <CgChevronUp className="text-lg" />
+                    </div>
+                    <div className="inline-block ml-5 text-sm text-gray-500">
+                        Tap to see quick actions
+                    </div>
                 </div>
             )}
         </main>
