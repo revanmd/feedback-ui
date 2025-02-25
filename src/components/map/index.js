@@ -28,7 +28,7 @@ export default function Map({
           setCenter({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          });
+          }, 18);
         },
         (error) => {
           alert(error.message);

@@ -87,6 +87,11 @@ export default function SurveyDrawer({ event, setEvent }) {
                 audio={false}
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
+                style={{
+                    maxHeight: "200px",
+                    width: "100%", // Ensures it scales properly
+                    objectFit: "cover" // Helps maintain aspect ratio
+                }}
             >
             </Webcam>
         );
