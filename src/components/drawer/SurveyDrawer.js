@@ -55,7 +55,7 @@ export default function SurveyDrawer({ event, setEvent }) {
                 setScreen("full");
             } else if (height > 0.5 * windowHeight.current) {
                 setScreen("half");
-            } else if (height < 500) {
+            } else if (height < 300) {
                 setScreen("minimize");
                 callbackMinimize()
             }
@@ -68,8 +68,8 @@ export default function SurveyDrawer({ event, setEvent }) {
                     setHeight(windowHeight.current);
                 }
                 if (screen === "half") {
-                    currentHeight.current = 500;
-                    setHeight(500);
+                    currentHeight.current = 550;
+                    setHeight(550);
                 }
             };
 
@@ -79,29 +79,15 @@ export default function SurveyDrawer({ event, setEvent }) {
 
         ///////////////////////////////////////////////////////////////////
         const videoConstraints = {
-            width: 1280,
-            height: 720,
             facingMode: "environment"
         };
 
         const WebcamCapture = () => (
             <Webcam
                 audio={false}
-                height={720}
                 screenshotFormat="image/jpeg"
-                width={1280}
                 videoConstraints={videoConstraints}
             >
-                {({ getScreenshot }) => (
-                    <button
-                        onClick={() => {
-                            const imageSrc = getScreenshot()
-                        }}
-                        className="bg-black w-full py-2 text-white"
-                    >
-                        Ambil foto
-                    </button>
-                )}
             </Webcam>
         );
 
