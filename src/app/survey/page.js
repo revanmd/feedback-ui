@@ -13,7 +13,7 @@ const Map = dynamic(() => import("@/components/map"), {
 
 export default function PageSurvey() {
     // form-filling, detail, tagging
-    const [event, setEvent] = useState('survey')
+    const [event, setEvent] = useState('view')
     return (
         <main>
 
