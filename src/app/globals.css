@@ -3,3 +3,7 @@
 @tailwind utilities;
 
 
+html, body {
+  overflow: hidden; /* Prevents scrolling, keeps toolbar visible */
+  height: 100vh;
+}
