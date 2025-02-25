@@ -1,6 +1,7 @@
 "use client"
 
-import Drawer from "@/components/drawer";
+
+import { MenuDrawer, SurveyDrawer } from "@/components/drawer";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
@@ -12,15 +13,17 @@ const Map = dynamic(() => import("@/components/map"), {
 
 export default function PageSurvey() {
     // form-filling, detail, tagging
-    const [event, setEvent] = useState('view')
+    const [event, setEvent] = useState('survey')
     return (
         <main>
+
             <Map
                 event={event}
             />
-            <Drawer
-                event={event}
-            />
+
+            {event !== "survey" && <MenuDrawer event={event} setEvent={setEvent}/>}
+            {event === "survey" && <SurveyDrawer event={event} setEvent={setEvent}/>}
+            
         </main>
     )
 }

@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 export default function useLeafletMap({
   center = [51.505, -0.09],
-  zoom = 13 ,
-  tileLayerUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  zoom = 13,
+  tileLayerUrl = "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", // Google Satellite imagery
   markers = [],
   onClickMarker, // Optional click handler
   onCancelMarker,
@@ -15,34 +15,39 @@ export default function useLeafletMap({
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
 
-
   const _initialize = (container, instance) => {
     instance.current = L.map(container.current, {
       center,
       zoom,
     });
     L.tileLayer(tileLayerUrl).addTo(instance.current);
-  }
+  };
 
   const _destroy = (instance) => {
-    instance.current.remove();
-    instance.current = null;
-  }
-
+    if (instance.current) {
+      instance.current.remove();
+      instance.current = null;
+    }
+  };
 
   useEffect(() => {
-    // initialize the map
     if (mapContainerRef.current && !mapInstanceRef.current) {
       _initialize(mapContainerRef, mapInstanceRef);
     }
 
-    // unmount before reinitialize
     return () => {
       if (mapInstanceRef.current) {
-        _destroy(mapInstanceRef)
+        _destroy(mapInstanceRef);
       }
     };
-  }, [center, zoom, tileLayerUrl]);
+  }, [tileLayerUrl]);
 
-  return mapContainerRef;
+  // Function to update the center without reinitializing
+  const setCenter = useCallback((newCenter, newZoom = zoom) => {
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.setView(newCenter, newZoom);
+    }
+  }, [zoom]);
+
+  return { mapContainerRef, setCenter };
 }
