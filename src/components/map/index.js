@@ -53,11 +53,10 @@ export default function Map({
 
   return (
     <div>
-      <div style={{ zIndex: 1000, position: 'absolute', bottom: 55, right: 5 }} >
-        <div onClick={handleGPS} className="bg-white rounded-full p-3 shadow-md" >
+      <div style={{ zIndex: 1000, position: 'absolute', bottom: 65, right: 5 }} >
+        <div onClick={handleGPS} className="bg-white rounded-full p-5 shadow-md" >
           <MdGpsFixed 
-            className="text-xl"
-            color="#2C3E5D"
+            className="text-3xl text-gray-500"
           />
         </div>
       </div>

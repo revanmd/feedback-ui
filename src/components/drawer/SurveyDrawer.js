@@ -141,7 +141,7 @@ export default function SurveyDrawer({ event, setEvent }) {
 
     return (
         <main
-            style={{ position: "absolute", zIndex: 1000, bottom: 0, width: "100%"}}
+            style={{ position: "absolute", zIndex: 1000, bottom: 0, width: "100%" }}
         >
 
 
@@ -156,16 +156,7 @@ export default function SurveyDrawer({ event, setEvent }) {
 
 
             {screen === "minimize" && (
-                <div
-                    onClick={handleSetMarker}
-                    className="bg-white w-screen py-3.5 px-5 flex items-center"
-                >
-                    <div className="inline-block">
-                        <FaCheck 
-                            className="text-lg"
-                            color="#0080FB" 
-                        />
-                    </div>
+                <div className="bg-white w-screen py-3.5 px-5 flex items-center">
                     <div className="inline-block ml-5 text-sm text-gray-500">
                         Save current survey location
                     </div>
@@ -175,26 +166,31 @@ export default function SurveyDrawer({ event, setEvent }) {
 
 
             {showMarker && (
-                <div style={{ zIndex: 1000 }} className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl">
-                    <FaMapMarkerAlt
-                        color="#0080FB"
-                    />
-                </div>
-            )}
+                <div>
+                    <div style={{ zIndex: 1000 }} className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl">
+                        <FaMapMarkerAlt
+                            color="#0080FB"
+                        />
+                    </div>
 
+                    <div style={{ zIndex: 1000, position: 'absolute', bottom: 160, right: 5 }}>
+                        <div onClick={handleCancel} className="bg-white rounded-full p-5 shadow-md text-red-500" >
+                            <IoCloseOutline 
+                                className="text-3xl"
+                            />
+                        </div>
+                    </div>
 
-
-            {showMarker && (
-                <div
-                    style={{ zIndex: 1000, position: 'absolute', bottom: 105, right: 5 }}
-                    className={`transition-opacity duration-500 ${showMarker ? "opacity-100" : "opacity-0"}`}
-                >
-                    <div onClick={handleCancel} className="bg-white rounded-full p-3 shadow-md text-red-500" >
-                        <IoCloseOutline className="text-xl" />
+                    <div style={{ zIndex: 1000, position: 'absolute', bottom: 65, right: 5 }} >
+                        <div onClick={handleSetMarker} className="bg-white rounded-full p-5 shadow-md" >
+                            <FaCheck
+                                className="text-3xl"
+                                color="#079B59"
+                            />
+                        </div>
                     </div>
                 </div>
             )}
-
         </main>
     );
 }

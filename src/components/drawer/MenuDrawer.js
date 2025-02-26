@@ -93,19 +93,23 @@ export default function MenuDrawer({ event, setEvent }) {
                     <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
                 </div>
 
-                <div className="text-center mt-3 font-semibold">Quick Actions</div>
+                <div className="text-center mt-3 font-semibold text-xl">Quick Actions</div>
                 <div className="text-center mt-3">
                     <div className="inline-block m-3" onClick={handleClickSurvey}>
-                        <div style={{backgroundColor:'#0080FB'}} className="w-14 h-14 rounded-full flex items-center justify-center text-white text-lg">
-                            <FaMapLocationDot />
+                        <div style={{backgroundColor:'#0080FB'}} className="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg">
+                            <FaMapLocationDot
+                                className="text-2xl"
+                            />
                         </div>
-                        <div className="mt-1 text-sm text-gray-500">Survey</div>
+                        <div className="mt-1 text-gray-500">Survey</div>
                     </div>
                     <div className="inline-block m-3" onClick={handleClickHistory}>
-                        <div style={{backgroundColor:'#0080FB'}} className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg">
-                            <FaArchive />
+                        <div style={{backgroundColor:'#0080FB'}} className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg">
+                            <FaArchive
+                                 className="text-2xl"
+                            />
                         </div>
-                        <div className="mt-1 text-sm text-gray-500">History</div>
+                        <div className="mt-1 text-gray-500">History</div>
                     </div>
                 </div>
             </div>
@@ -139,11 +143,10 @@ export default function MenuDrawer({ event, setEvent }) {
                 >
                     <div className="inline-block">
                         <CgChevronUp
-                            className="text-lg"
-                            color="#2C3E5D"
+                            className="text-2xl text-gray-500"
                         />
                     </div>
-                    <div className="inline-block ml-5 text-sm text-gray-500">
+                    <div className="inline-block ml-5 text-gray-500">
                         Tap to see quick actions
                     </div>
                 </div>

@@ -28,7 +28,10 @@ export default function PageSurvey() {
             />
 
             {event !== "survey" && (
-                <MenuDrawer event={event} setEvent={setEvent} />
+                <MenuDrawer 
+                    event={event} 
+                    setEvent={setEvent} 
+                />
             )}
 
             {event === "survey" && (
