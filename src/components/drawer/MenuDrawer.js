@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { CgChevronUp } from "react-icons/cg";
+import { FaArchive } from "react-icons/fa";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 export default function MenuDrawer({ event, setEvent }) {
     const [screen, setScreen] = useState("minimize"); // 'minimize', 'half', 'full'
@@ -11,12 +13,12 @@ export default function MenuDrawer({ event, setEvent }) {
         setScreen("minimize")
     }
 
-    const handleHistory =  () => {
+    const handleHistory = () => {
         setScreen("minimize")
     }
 
-    const MenuComponent = ({ 
-        screen, 
+    const MenuComponent = ({
+        screen,
         setScreen,
         callbackSurvey,
         callbackHistory
@@ -68,11 +70,11 @@ export default function MenuDrawer({ event, setEvent }) {
         }, [screen]);
 
         ////////////////////////////////
-        const handleClickSurvey = () =>{
+        const handleClickSurvey = () => {
             callbackSurvey()
         }
 
-        const handleClickHistory = () =>{
+        const handleClickHistory = () => {
             callbackHistory()
             currentHeight.current = 0
             setHeight(0)
@@ -94,14 +96,14 @@ export default function MenuDrawer({ event, setEvent }) {
                 <div className="text-center mt-3 font-semibold">Quick Actions</div>
                 <div className="text-center mt-3">
                     <div className="inline-block m-3" onClick={handleClickSurvey}>
-                        <div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg">
-                            S
+                        <div style={{backgroundColor:'#0080FB'}} className="w-14 h-14 rounded-full flex items-center justify-center text-white text-lg">
+                            <FaMapLocationDot />
                         </div>
                         <div className="mt-1 text-sm text-gray-500">Survey</div>
                     </div>
                     <div className="inline-block m-3" onClick={handleClickHistory}>
-                        <div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg">
-                            H
+                        <div style={{backgroundColor:'#0080FB'}} className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg">
+                            <FaArchive />
                         </div>
                         <div className="mt-1 text-sm text-gray-500">History</div>
                     </div>
@@ -121,9 +123,9 @@ export default function MenuDrawer({ event, setEvent }) {
         >
 
             {screen !== "minimize" && (
-                <MenuComponent 
-                    screen={screen} 
-                    setScreen={setScreen} 
+                <MenuComponent
+                    screen={screen}
+                    setScreen={setScreen}
                     callbackSurvey={handleSurvey}
                     callbackHistory={handleHistory}
                 />
@@ -136,7 +138,10 @@ export default function MenuDrawer({ event, setEvent }) {
                     className="bg-white w-screen py-3.5 px-5 flex items-center shadow-lg"
                 >
                     <div className="inline-block">
-                        <CgChevronUp className="text-lg" />
+                        <CgChevronUp
+                            className="text-lg"
+                            color="#2C3E5D"
+                        />
                     </div>
                     <div className="inline-block ml-5 text-sm text-gray-500">
                         Tap to see quick actions
@@ -144,7 +149,7 @@ export default function MenuDrawer({ event, setEvent }) {
                 </div>
             )}
 
-            
+
         </main>
     );
 }

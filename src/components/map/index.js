@@ -1,7 +1,7 @@
 // components/Map.jsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdGpsFixed } from "react-icons/md";
 import useLeafletMap from "./hooks/useLeafletMaps";
 
@@ -13,7 +13,14 @@ export default function Map({
 }) {
   const [zoom, setZoom] = useState(13)
 
-  const { mapContainerRef, setCenter } = useLeafletMap({
+  const { 
+      mapContainerRef, 
+      setCenter, 
+      addLayer, 
+      removeLayer, 
+      drawMarkers, 
+      filterMarkers
+  } = useLeafletMap({
     zoom: zoom,
     onClickMarker: callbackClickMarker,
     onCancelMarker: callbackCancelMarker,
@@ -39,11 +46,19 @@ export default function Map({
     }
   }
 
+  useEffect(()=>{
+    // add layer to the map
+    addLayer('https://tile.digitalisasi-pi.com/data/merged_output_jatim_rgb/{z}/{x}/{y}.png')
+  },[])
+
   return (
     <div>
-      <div style={{ zIndex: 1000, position: 'absolute', bottom: 70, right: 5 }} >
+      <div style={{ zIndex: 1000, position: 'absolute', bottom: 55, right: 5 }} >
         <div onClick={handleGPS} className="bg-white rounded-full p-3 shadow-md" >
-          <MdGpsFixed className="text-xl" />
+          <MdGpsFixed 
+            className="text-xl"
+            color="#2C3E5D"
+          />
         </div>
       </div>
       <div ref={mapContainerRef} style={{ height: "100vh", width: "100%" }}  />

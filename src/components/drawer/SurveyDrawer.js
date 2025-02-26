@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { IoCloseOutline } from "react-icons/io5";
+
 import Webcam from "react-webcam";
 
 export default function SurveyDrawer({ event, setEvent }) {
@@ -19,6 +21,10 @@ export default function SurveyDrawer({ event, setEvent }) {
         setScreen("minimize")
     }
 
+    const handleCancel = () => {
+        setEvent("view")
+        setScreen("minimize")
+    }
     const handleFinish = () => {
         setEvent("view")
         setScreen("minimize")
@@ -68,8 +74,8 @@ export default function SurveyDrawer({ event, setEvent }) {
                     setHeight(windowHeight.current);
                 }
                 if (screen === "half") {
-                    currentHeight.current = 550;
-                    setHeight(550);
+                    currentHeight.current = 500;
+                    setHeight(500);
                 }
             };
 
@@ -88,7 +94,7 @@ export default function SurveyDrawer({ event, setEvent }) {
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
                 style={{
-                    maxHeight: "200px",
+                    maxHeight: "220px",
                     width: "100%", // Ensures it scales properly
                     objectFit: "cover" // Helps maintain aspect ratio
                 }}
@@ -135,13 +141,9 @@ export default function SurveyDrawer({ event, setEvent }) {
 
     return (
         <main
-            style={{
-                position: "absolute",
-                zIndex: 1000,
-                bottom: 0,
-                width: "100%",
-            }}
+            style={{ position: "absolute", zIndex: 1000, bottom: 0, width: "100%"}}
         >
+
 
             {screen !== "minimize" && (
                 <FormComponent
@@ -151,13 +153,18 @@ export default function SurveyDrawer({ event, setEvent }) {
                     callbackFinish={handleFinish}
                 />
             )}
+
+
             {screen === "minimize" && (
                 <div
                     onClick={handleSetMarker}
                     className="bg-white w-screen py-3.5 px-5 flex items-center"
                 >
                     <div className="inline-block">
-                        <FaCheck className="text-lg" />
+                        <FaCheck 
+                            className="text-lg"
+                            color="#0080FB" 
+                        />
                     </div>
                     <div className="inline-block ml-5 text-sm text-gray-500">
                         Save current survey location
@@ -166,12 +173,28 @@ export default function SurveyDrawer({ event, setEvent }) {
             )}
 
 
+
             {showMarker && (
                 <div style={{ zIndex: 1000 }} className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl">
-                    <FaMapMarkerAlt />
+                    <FaMapMarkerAlt
+                        color="#0080FB"
+                    />
                 </div>
             )}
-            
+
+
+
+            {showMarker && (
+                <div
+                    style={{ zIndex: 1000, position: 'absolute', bottom: 105, right: 5 }}
+                    className={`transition-opacity duration-500 ${showMarker ? "opacity-100" : "opacity-0"}`}
+                >
+                    <div onClick={handleCancel} className="bg-white rounded-full p-3 shadow-md text-red-500" >
+                        <IoCloseOutline className="text-xl" />
+                    </div>
+                </div>
+            )}
+
         </main>
     );
 }
