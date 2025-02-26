@@ -133,7 +133,7 @@ export default function MenuDrawer({ event, setEvent }) {
                     onClick={() => {
                         setScreen("half");
                     }}
-                    className="bg-white w-screen py-3.5 px-5 flex items-center"
+                    className="bg-white w-screen py-3.5 px-5 flex items-center shadow-lg"
                 >
                     <div className="inline-block">
                         <CgChevronUp className="text-lg" />

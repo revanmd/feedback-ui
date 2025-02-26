@@ -171,6 +171,7 @@ export default function SurveyDrawer({ event, setEvent }) {
                     <FaMapMarkerAlt />
                 </div>
             )}
+            
         </main>
     );
 }

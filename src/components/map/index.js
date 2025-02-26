@@ -41,12 +41,13 @@ export default function Map({
 
   return (
     <div>
-      <div style={{ zIndex: 1000, position: 'absolute', bottom: 70, right: 5 }}>
-        <div onClick={handleGPS} className="bg-white rounded-full p-3">
+      <div style={{ zIndex: 1000, position: 'absolute', bottom: 70, right: 5 }} >
+        <div onClick={handleGPS} className="bg-white rounded-full p-3 shadow-md" >
           <MdGpsFixed className="text-xl" />
         </div>
       </div>
-      <div ref={mapContainerRef} style={{ height: "100vh", width: "100%" }} />
+      <div ref={mapContainerRef} style={{ height: "100vh", width: "100%" }}  />
+
     </div>
 
   );
