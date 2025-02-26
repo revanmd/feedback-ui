@@ -6,6 +6,8 @@ import { MdGpsFixed } from "react-icons/md";
 import useLeafletMap from "./hooks/useLeafletMaps";
 
 export default function Map({
+  event,
+  screen,
   callbackClickMarker,
   callbackCancelMarker,
   callbackPressMap,
@@ -13,13 +15,13 @@ export default function Map({
 }) {
   const [zoom, setZoom] = useState(13)
 
-  const { 
-      mapContainerRef, 
-      setCenter, 
-      addLayer, 
-      removeLayer, 
-      drawMarkers, 
-      filterMarkers
+  const {
+    mapContainerRef,
+    setCenter,
+    addLayer,
+    removeLayer,
+    drawMarkers,
+    filterMarkers
   } = useLeafletMap({
     zoom: zoom,
     onClickMarker: callbackClickMarker,
@@ -46,21 +48,26 @@ export default function Map({
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     // add layer to the map
     addLayer('https://tile.digitalisasi-pi.com/data/merged_output_jatim_rgb/{z}/{x}/{y}.png')
-  },[])
+  }, [])
 
   return (
     <div>
-      <div style={{ zIndex: 1000, position: 'absolute', bottom: 65, right: 5 }} >
-        <div onClick={handleGPS} className="bg-white rounded-full p-5 shadow-md" >
-          <MdGpsFixed 
-            className="text-3xl text-gray-500"
+      {/* MAPS WIDGET */}
+      <div 
+        style={{ zIndex: 1000, position: 'absolute',right: 10 }} 
+        className={(event == "view" && screen == "half") ? "bottom-40" : "bottom-14"} 
+      >
+        <div onClick={handleGPS} className="bg-white rounded-full p-5 shadow-md mb-1" >
+          <MdGpsFixed
+            className="text-2xl text-gray-500"
           />
         </div>
       </div>
-      <div ref={mapContainerRef} style={{ height: "100vh", width: "100%" }}  />
+
+      <div ref={mapContainerRef} style={{ height: "100vh", width: "100%" }} />
 
     </div>
 

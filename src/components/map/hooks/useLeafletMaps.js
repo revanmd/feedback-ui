@@ -20,7 +20,11 @@ export default function useLeafletMap({
 
   const _initialize = (container, instance) => {
     if (!container.current || instance.current) return;
-    instance.current = L.map(container.current, { center, zoom });
+    instance.current = L.map(container.current, { 
+        center, 
+        zoom,
+        zoomControl: false, 
+      });
     L.tileLayer(tileLayerUrl).addTo(instance.current);
     markerLayerRef.current = L.layerGroup().addTo(instance.current);
 

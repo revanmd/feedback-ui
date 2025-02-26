@@ -14,6 +14,7 @@ const Map = dynamic(() => import("@/components/map"), {
 export default function PageSurvey() {
     // form-filling, detail, tagging
     const [event, setEvent] = useState('view')
+    const [screen, setScreen] = useState('minimize')
 
     const callbackPressMap = () => {
         setEvent('survey')
@@ -24,6 +25,7 @@ export default function PageSurvey() {
 
             <Map
                 event={event}
+                screen={screen}
                 callbackPressMap={callbackPressMap}
             />
 
@@ -31,6 +33,8 @@ export default function PageSurvey() {
                 <MenuDrawer 
                     event={event} 
                     setEvent={setEvent} 
+                    screen={screen}
+                    setScreen={setScreen}
                 />
             )}
 
@@ -38,6 +42,8 @@ export default function PageSurvey() {
                 <SurveyDrawer 
                     event={event} 
                     setEvent={setEvent} 
+                    screen={screen}
+                    setScreen={setScreen}
                 />
             )}
 

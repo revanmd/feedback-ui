@@ -5,9 +5,12 @@ import { CgChevronUp } from "react-icons/cg";
 import { FaArchive } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
 
-export default function MenuDrawer({ event, setEvent }) {
-    const [screen, setScreen] = useState("minimize"); // 'minimize', 'half', 'full'
-
+export default function MenuDrawer({ 
+    event, 
+    setEvent,
+    screen,
+    setScreen
+}) {
     const handleSurvey = () => {
         setEvent("survey")
         setScreen("minimize")
@@ -48,7 +51,7 @@ export default function MenuDrawer({ event, setEvent }) {
                 setScreen("full");
             } else if (height > 0.5 * windowHeight.current) {
                 setScreen("half");
-            } else if (height < 200) {
+            } else if (height < 100) {
                 setScreen("minimize");
             }
         };
@@ -61,15 +64,15 @@ export default function MenuDrawer({ event, setEvent }) {
                     setHeight(windowHeight.current);
                 }
                 if (screen === "half") {
-                    currentHeight.current = 200;
-                    setHeight(200);
+                    currentHeight.current = 155;
+                    setHeight(155);
                 }
             };
 
             updateHeight();
         }, [screen]);
 
-        ////////////////////////////////
+        //////////////////////////////////////////////////////////////
         const handleClickSurvey = () => {
             callbackSurvey()
         }
@@ -82,7 +85,7 @@ export default function MenuDrawer({ event, setEvent }) {
 
         return (
             <div
-                className="bg-white w-screen rounded-t-xl shadow-lg"
+                className="bg-white w-screen rounded-t-2xl shadow-lg"
                 style={{ height: `${height}px` }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -90,26 +93,26 @@ export default function MenuDrawer({ event, setEvent }) {
             >
                 {/* Drag handle */}
                 <div className="w-full flex justify-center py-2">
-                    <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
+                    <div className="w-6 h-1 bg-gray-200 rounded-full"></div>
                 </div>
 
-                <div className="text-center mt-3 font-semibold text-xl">Quick Actions</div>
-                <div className="text-center mt-3">
+                <div className="text-center mt-1 font-semibold">Menu</div>
+                <div className="text-center mt-1">
                     <div className="inline-block m-3" onClick={handleClickSurvey}>
-                        <div style={{backgroundColor:'#0080FB'}} className="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg">
+                        <div style={{backgroundColor:'#1a73e8'}} className="w-14 h-14 rounded-full flex items-center justify-center text-white text-lg">
                             <FaMapLocationDot
-                                className="text-2xl"
+                                className="text-xl"
                             />
                         </div>
-                        <div className="mt-1 text-gray-500">Survey</div>
+                        <div className="mt-1 text-gray-500 text-xs">Survey</div>
                     </div>
                     <div className="inline-block m-3" onClick={handleClickHistory}>
-                        <div style={{backgroundColor:'#0080FB'}} className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg">
+                        <div style={{backgroundColor:'#1a73e8'}} className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg">
                             <FaArchive
-                                 className="text-2xl"
+                                 className="text-xl"
                             />
                         </div>
-                        <div className="mt-1 text-gray-500">History</div>
+                        <div className="mt-1 text-gray-500 text-xs">History</div>
                     </div>
                 </div>
             </div>
@@ -136,18 +139,16 @@ export default function MenuDrawer({ event, setEvent }) {
             )}
             {screen === "minimize" && (
                 <div
-                    onClick={() => {
-                        setScreen("half");
-                    }}
+                    onClick={() => {setScreen("half");}}
                     className="bg-white w-screen py-3.5 px-5 flex items-center shadow-lg"
                 >
                     <div className="inline-block">
                         <CgChevronUp
-                            className="text-2xl text-gray-500"
+                            className="text-xl text-gray-500"
                         />
                     </div>
-                    <div className="inline-block ml-5 text-gray-500">
-                        Tap to see quick actions
+                    <div className="inline-block ml-3 text-gray-500 text-sm">
+                        Tekan untuk melihat menu
                     </div>
                 </div>
             )}

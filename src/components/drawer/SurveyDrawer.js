@@ -7,8 +7,12 @@ import { IoCloseOutline } from "react-icons/io5";
 
 import Webcam from "react-webcam";
 
-export default function SurveyDrawer({ event, setEvent }) {
-    const [screen, setScreen] = useState("minimize"); // 'minimize', 'half', 'full'\
+export default function SurveyDrawer({ 
+    event, 
+    setEvent,
+    screen,
+    setScreen
+}) {
     const [showMarker, setShowMarker] = useState(true)
 
     const handleSetMarker = () => {
@@ -74,8 +78,8 @@ export default function SurveyDrawer({ event, setEvent }) {
                     setHeight(windowHeight.current);
                 }
                 if (screen === "half") {
-                    currentHeight.current = 500;
-                    setHeight(500);
+                    currentHeight.current = 550;
+                    setHeight(550);
                 }
             };
 
@@ -116,11 +120,14 @@ export default function SurveyDrawer({ event, setEvent }) {
                     <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
                 </div>
 
-                <div className="text-center mt-3 font-semibold">Feedback Form</div>
+                <div className="text-center mt-3 font-semibold">Survey Komoditas</div>
                 <div className="px-10">
                     <div className="mt-3">
-                        <label className="text-xs text-gray-600">Komoditas</label>
-                        <select className="bg-white border border-gray-200 rounded p-1 mt-1 w-full text-sm">
+                        <label className="text-xs text-gray-600">Komoditas<span className="text-red-400">*</span></label>
+                        <select className="bg-white border border-gray-200 rounded p-1 mt-1 w-full"
+                            defaultValue={null}
+                        >
+                            <option value="" disabled selected>Pilih komoditas</option>
                             <option>Padi</option>
                             <option>Jagung</option>
                             <option>Tebu</option>
@@ -129,11 +136,23 @@ export default function SurveyDrawer({ event, setEvent }) {
                     </div>
 
                     <div className="mt-3">
-                        <label className="text-xs text-gray-600 mb-2">Foto Bukti</label>
+                        <label className="text-xs text-gray-600">Hari Setelah Tanam</label>
+                        <input type="number" className="bg-white border border-gray-200 rounded p-1 mt-1 w-full"></input>
+                    </div>
+
+
+                    <div className="mt-3">
+                        <label className="text-xs text-gray-600 mb-2">Foto Bukti<span className="text-red-400">*</span></label>
                         <WebcamCapture />
                     </div>
 
-                    <button onClick={callbackFinish} className="mt-5 w-full py-2 bg-black text-white rounded-sm">Kirim</button>
+                    <button 
+                        onClick={callbackFinish} 
+                        className="mt-5 w-full py-2 text-white rounded font-semibold"
+                        style={{backgroundColor:'#166832', color:'white'}}
+                    >
+                        Simpan
+                    </button>
                 </div>
             </div>
         );
@@ -157,8 +176,8 @@ export default function SurveyDrawer({ event, setEvent }) {
 
             {screen === "minimize" && (
                 <div className="bg-white w-screen py-3.5 px-5 flex items-center">
-                    <div className="inline-block ml-5 text-sm text-gray-500">
-                        Save current survey location
+                    <div className="inline-block ml-3 text-sm text-gray-500">
+                        Apakah posisi ini sudah sesuai ?
                     </div>
                 </div>
             )}
@@ -169,23 +188,26 @@ export default function SurveyDrawer({ event, setEvent }) {
                 <div>
                     <div style={{ zIndex: 1000 }} className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl">
                         <FaMapMarkerAlt
-                            color="#0080FB"
+                            color="white"
                         />
                     </div>
 
-                    <div style={{ zIndex: 1000, position: 'absolute', bottom: 160, right: 5 }}>
-                        <div onClick={handleCancel} className="bg-white rounded-full p-5 shadow-md text-red-500" >
+                    <div style={{ zIndex: 1000, position: 'absolute', bottom: 130, right: 10 }}>
+                        <div onClick={handleCancel} className="bg-white rounded-full p-5 shadow-md text-red-600" >
                             <IoCloseOutline 
-                                className="text-3xl"
+                                className="text-2xl"
                             />
                         </div>
                     </div>
 
-                    <div style={{ zIndex: 1000, position: 'absolute', bottom: 65, right: 5 }} >
+                    <div 
+                        style={{ zIndex: 1000, position: 'absolute', right: 10 }} 
+                        className="bottom-14 mb-1"
+                    >
                         <div onClick={handleSetMarker} className="bg-white rounded-full p-5 shadow-md" >
                             <FaCheck
-                                className="text-3xl"
-                                color="#079B59"
+                                className="text-2xl"
+                                color="#166832"
                             />
                         </div>
                     </div>
